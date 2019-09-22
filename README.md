@@ -1,6 +1,6 @@
 # optitrack_ros
 
-This code works well for ROS kinetic and *not tested* for others. Main difference from https://github.com/crigroup/optitrack/tree/feat/support-kinetic is that this code can track single marker. Anyways, all the credit goes to https://github.com/crigroup/optitrack/tree/feat/support-kinetic.
+This code works well for ROS kinetic and *not tested* for others. Main difference from https://github.com/crigroup/optitrack/tree/feat/support-kinetic is that this code can track single marker. Anyways, this code is adopted from https://github.com/crigroup/optitrack/tree/feat/support-kinetic.
 
 **Install** <br />
 Install optirx package <br />
