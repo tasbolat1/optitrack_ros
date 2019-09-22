@@ -1,5 +1,8 @@
 # optitrack_ros
-How to run:
+** Install ** <br />
+Install optirx package <br />
+`pip install optirx --user` <br />
+**How to run:** <br />
 1. Get network name:
 
 `ifconfig`
