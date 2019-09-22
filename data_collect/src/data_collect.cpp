@@ -16,12 +16,14 @@ DataCollector::DataCollector(){
 	ROS_INFO("Got parameter : %s", param.c_str());
 
 	if(param == "train"){
+		cout << "train" << endl;
         timestamp_file.open("/home/crslab/catkin_ws/src/optitrack_ros/data_collect/timestamp.csv", ios::app);
 
         // ROS Subscriber initialisation
 		time_collect_sub = n.subscribe("optitrack/rigid_bodies", 1000, &DataCollector::timeCollectCB, this);
     }
     else if(param == "test"){
+    	cout << "test" << endl;
         rigid_body_pose_file.open("/home/crslab/catkin_ws/src/optitrack_ros/data_collect/rigid_body_pose.csv", ios::app);
         rigid_body_markers_file.open("/home/crslab/catkin_ws/src/optitrack_ros/data_collect/rigid_body_markers.csv", ios::app);
 		marker0_file.open("/home/crslab/catkin_ws/src/optitrack_ros/data_collect/marker0.csv", ios::app);
@@ -29,9 +31,8 @@ DataCollector::DataCollector(){
 		marker2_file.open("/home/crslab/catkin_ws/src/optitrack_ros/data_collect/marker2.csv", ios::app);
 
 		// ROS Subscriber initialisation
-		rigid_data_sub = n.subscribe("optitrack/rigid_bodies", 1000, &DataCollector::dataCollectRigidCB, this);
-		markers_data_sub = n.subscribe("optitrack/rigid_bodies", 1000, &DataCollector::dataCollectMarkersCB, this);
-
+		rigid_data_sub = n.subscribe("/optitrack/rigid_bodies", 1000, &DataCollector::dataCollectRigidCB, this);
+		markers_data_sub = n.subscribe("/optitrack/single_markers", 1000, &DataCollector::dataCollectMarkersCB, this);
     }
     else{
         cout << "Don't run anything !! " << endl;
@@ -39,6 +40,7 @@ DataCollector::DataCollector(){
 }
 
 DataCollector::~DataCollector(){
+	cout << "Destructor" << endl;
 	if (param == "train"){
 		timestamp_file.close();
 	}
@@ -58,6 +60,7 @@ void DataCollector::timeCollectCB(const optitrack::RigidBodyArray::ConstPtr& msg
 void DataCollector::dataCollectRigidCB(const optitrack::RigidBodyArray::ConstPtr& msg){
 	rigid_body_pose_file << msg->header.stamp << "," << msg->bodies[0].pose.position.x << msg->bodies[0].pose.position.y << msg->bodies[0].pose.position.z << ",";
 	rigid_body_pose_file << msg->bodies[0].pose.orientation.x << msg->bodies[0].pose.orientation.y << msg->bodies[0].pose.orientation.z << msg->bodies[0].pose.orientation.w << "\n";
+	std::cout << msg->bodies[0].markers[0].x << "," << msg->bodies[0].markers[0].y << "," << msg->bodies[0].markers[0].z << "," << std::endl;
 
 	rigid_body_markers_file << msg->bodies[0].markers[0].x << "," << msg->bodies[0].markers[0].y << "," << msg->bodies[0].markers[0].z << ",";
 	rigid_body_markers_file << msg->bodies[0].markers[1].x << "," << msg->bodies[0].markers[1].y << "," << msg->bodies[0].markers[1].z << ",";
@@ -76,7 +79,10 @@ int main(int argc, char** argv){
 	
 	DataCollector data_collector;
 
-	ros::spin();
+	while (ros::ok())
+		ros::spin();
+
+	//data_collector.~DataCollector();
 
 	return 0;
 }
