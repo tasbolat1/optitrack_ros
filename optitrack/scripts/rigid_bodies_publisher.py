@@ -63,13 +63,13 @@ class RigidBodiesPublisher(object):
     prevtime2 = np.ones(10)*rospy.get_time()
     while not rospy.is_shutdown():
       try:	
-	optitrack.setblocking(0)
-	ready = select.select([optitrack], [], [], 1)
-	if ready[0]:
-		data = optitrack.recv(rx.MAX_PACKETSIZE)
-	else:
-		print("no data")
-		data = ""
+        optitrack.setblocking(0)
+        ready = select.select([optitrack], [], [], 1)
+        if ready[0]:
+          data = optitrack.recv(rx.MAX_PACKETSIZE)
+        else:
+          print("no data")
+          data = ""
       except socket.error:
         if rospy.is_shutdown():  # exit gracefully
           return

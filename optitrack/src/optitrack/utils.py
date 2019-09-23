@@ -21,6 +21,7 @@ def get_ip_address(ifname):
       0x8915,  # SIOCGIFADDR
       struct.pack('256s', ifname[:15]))[20:24])
 
+
 def read_parameter(name, default):
   """
   Get a parameter from the ROS parameter server. If it's not found, a 
