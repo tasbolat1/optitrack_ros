@@ -19,3 +19,16 @@ Compile your ROS <br />
 `ifconfig` <br />
 2. Run your program <br />
 `roslaunch optitrack optitrack_pipeline.launch iface:="network_name"`
+
+
+
+**How to run: Optitrack recorder** <br />
+1. Make sure that `motive_ip` (optitrack_ros/scripts/control_commands) is set to Motive's PC's IP <br />
+2. Make sure that iface command is given <br />
+3. Make sure that the connection is there
+3. To run:
+`rosrun optitrack control_commands.py`
+4. To start recording:
+`rostopic pub -1 /filename std_msgs/String "name_of_take"`
+5. To stop recording
+`pub -1 /filename std_msgs/String "stop"`
