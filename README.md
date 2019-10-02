@@ -3,6 +3,9 @@
 This code works well for ROS kinetic and *not tested* for others. Main difference from https://github.com/crigroup/optitrack/tree/feat/support-kinetic is that this code can track single marker. Anyways, this code is adopted from https://github.com/crigroup/optitrack/tree/feat/support-kinetic.
 
 **Install** <br />
+Follow folling link to install vrpn before installing other packages <br />
+https://answers.ros.org/question/285887/ros_vrpn_client-installation-help/ <br />
+
 Install optirx package <br />
 `pip install optirx --user` <br />
 Go to your catkin workspace <br />
